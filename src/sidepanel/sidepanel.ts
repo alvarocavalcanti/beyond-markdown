@@ -1,4 +1,5 @@
 import browser from 'webextension-polyfill';
+import { convertHtmlToMarkdown } from '../utils/markdown-converter';
 
 const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
 const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
@@ -33,7 +34,7 @@ generateBtn.addEventListener('click', async () => {
       throw new Error('Failed to get page content');
     }
 
-    currentMarkdown = `# ${response.title}\n\nSource: ${response.url}\n\n---\n\n[Content conversion will be implemented in next phase]`;
+    currentMarkdown = convertHtmlToMarkdown(response.html, response.title, response.url);
 
     markdownPreview.textContent = currentMarkdown;
     markdownPreview.classList.remove('placeholder');

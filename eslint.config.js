@@ -21,6 +21,8 @@ export default [
         HTMLButtonElement: 'readonly',
         HTMLInputElement: 'readonly',
         HTMLDivElement: 'readonly',
+        HTMLElement: 'readonly',
+        HTMLAnchorElement: 'readonly',
         Blob: 'readonly',
         URL: 'readonly',
         alert: 'readonly',
