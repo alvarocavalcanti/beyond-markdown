@@ -2,9 +2,10 @@ import { defineConfig } from 'vite';
 import webExtension from 'vite-plugin-web-extension';
 
 export default defineConfig({
+  root: 'src',
   plugins: [
     webExtension({
-      manifest: './src/manifest.json',
+      manifest: 'manifest.json',
       browser: process.env.TARGET_BROWSER || 'chrome',
       webExtConfig: {
         startUrl: 'https://www.dndbeyond.com/sources/dnd/br-2024/playing-the-game',
@@ -12,7 +13,7 @@ export default defineConfig({
     }),
   ],
   build: {
-    outDir: 'dist',
+    outDir: '../dist',
     emptyOutDir: true,
   },
 });

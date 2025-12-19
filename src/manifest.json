@@ -12,7 +12,7 @@
     "https://www.dndbeyond.com/*"
   ],
   "background": {
-    "service_worker": "background/service-worker.js",
+    "service_worker": "background/service-worker.ts",
     "type": "module"
   },
   "action": {
@@ -30,7 +30,7 @@
   "content_scripts": [
     {
       "matches": ["https://www.dndbeyond.com/*"],
-      "js": ["content/content-script.js"]
+      "js": ["content/content-script.ts"]
     }
   ],
   "icons": {
