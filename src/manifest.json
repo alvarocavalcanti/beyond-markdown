@@ -5,8 +5,7 @@
   "description": "Export D&D Beyond content as Markdown",
   "permissions": [
     "storage",
-    "downloads",
-    "sidePanel"
+    "downloads"
   ],
   "host_permissions": [
     "https://www.dndbeyond.com/*"
@@ -17,15 +16,13 @@
   },
   "action": {
     "default_title": "Export to Markdown",
+    "default_popup": "popup/index.html",
     "default_icon": {
       "16": "icons/icon-16.png",
       "32": "icons/icon-32.png",
       "48": "icons/icon-48.png",
       "128": "icons/icon-128.png"
     }
-  },
-  "side_panel": {
-    "default_path": "sidepanel/index.html"
   },
   "content_scripts": [
     {
