@@ -14,7 +14,7 @@ const DEFAULT_SETTINGS: Settings = {
 
 export async function getSettings(): Promise<Settings> {
   const result = await browser.storage.local.get('settings');
-  return { ...DEFAULT_SETTINGS, ...result.settings };
+  return { ...DEFAULT_SETTINGS, ...(result.settings as Partial<Settings> || {}) };
 }
 
 export async function saveSettings(settings: Partial<Settings>): Promise<void> {

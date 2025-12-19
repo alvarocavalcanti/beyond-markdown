@@ -28,7 +28,7 @@ generateBtn.addEventListener('click', async () => {
 
     const response = await browser.runtime.sendMessage({
       type: 'GET_PAGE_CONTENT',
-    });
+    }) as { html: string; title: string; url: string } | null;
 
     if (!response) {
       throw new Error('Failed to get page content');

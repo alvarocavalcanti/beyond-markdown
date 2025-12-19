@@ -14,10 +14,5 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: {
-      input: {
-        sidepanel: './src/sidepanel/index.html',
-      },
-    },
   },
 });

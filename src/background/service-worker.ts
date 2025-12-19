@@ -3,10 +3,12 @@ import browser from 'webextension-polyfill';
 browser.action.onClicked.addListener(async (tab) => {
   if (!tab.id) return;
 
-  await browser.sidePanel.open({ windowId: tab.windowId });
+  if ('sidePanel' in browser) {
+    await (browser as any).sidePanel.open({ windowId: tab.windowId });
+  }
 });
 
-browser.runtime.onMessage.addListener((message, sender) => {
+browser.runtime.onMessage.addListener((message: any, sender: any) => {
   if (message.type === 'GET_PAGE_CONTENT') {
     return handleGetPageContent(sender.tab?.id);
   }
