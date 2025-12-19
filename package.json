@@ -1,0 +1,32 @@
+{
+  "name": "beyond-markdown",
+  "version": "1.0.0",
+  "description": "A browser extension for you to export your D&amp;D Beyond content as Markdown.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:firefox": "TARGET_BROWSER=firefox vite",
+    "build": "tsc && vite build",
+    "build:firefox": "tsc && TARGET_BROWSER=firefox vite build",
+    "lint": "eslint src --ext .ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/chrome": "^0.1.32",
+    "@types/webextension-polyfill": "^0.12.4",
+    "@typescript-eslint/eslint-plugin": "^8.50.0",
+    "@typescript-eslint/parser": "^8.50.0",
+    "@vitejs/plugin-react": "^5.1.2",
+    "eslint": "^9.39.2",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.0",
+    "vite-plugin-web-extension": "^4.5.0",
+    "webextension-polyfill": "^0.12.0"
+  },
+  "dependencies": {
+    "@types/turndown": "^5.0.6",
+    "turndown": "^7.2.2"
+  }
+}
