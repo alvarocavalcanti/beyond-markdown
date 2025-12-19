@@ -58,19 +58,17 @@ saveBtn.addEventListener('click', async () => {
     const activeTab = tabs[0];
 
     const filename = `${sanitizeFilename(activeTab.title || 'export')}.md`;
-    const blob = new Blob([currentMarkdown], { type: 'text/markdown' });
-    const url = URL.createObjectURL(blob);
+
+    const dataUrl = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(currentMarkdown);
 
     const downloadOptions: any = {
-      url,
-      filename: savePathInput.value ? `${savePathInput.value}/${filename}` : filename,
+      url: dataUrl,
+      filename: filename,
       saveAs: true,
     };
 
     const downloadId = await browser.downloads.download(downloadOptions);
     console.log('Download started:', downloadId);
-
-    URL.revokeObjectURL(url);
   } catch (error) {
     console.error('Error saving markdown:', error);
     alert(`Error saving file: ${error instanceof Error ? error.message : 'Unknown error'}`);
