@@ -15,6 +15,15 @@ export default [
       globals: {
         chrome: 'readonly',
         browser: 'readonly',
+        console: 'readonly',
+        document: 'readonly',
+        window: 'readonly',
+        HTMLButtonElement: 'readonly',
+        HTMLInputElement: 'readonly',
+        HTMLDivElement: 'readonly',
+        Blob: 'readonly',
+        URL: 'readonly',
+        alert: 'readonly',
       },
     },
     plugins: {

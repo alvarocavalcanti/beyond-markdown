@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond Markdown</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Beyond Markdown</h1>
+    </header>
+
+    <main>
+      <section class="settings">
+        <div class="setting-group">
+          <label for="save-path">Save to folder:</label>
+          <div class="input-group">
+            <input type="text" id="save-path" placeholder="Downloads folder" />
+          </div>
+        </div>
+
+        <div class="setting-group">
+          <label>
+            <input type="checkbox" id="download-images" />
+            Download images locally
+          </label>
+        </div>
+
+        <div class="setting-group" id="image-syntax-group" style="display: none;">
+          <label>Image link syntax:</label>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="image-syntax" value="standard" checked />
+              Standard Markdown [text](link)
+            </label>
+            <label>
+              <input type="radio" name="image-syntax" value="obsidian" />
+              Obsidian [[link]]
+            </label>
+          </div>
+        </div>
+      </section>
+
+      <section class="preview">
+        <h2>Preview</h2>
+        <div id="markdown-preview" class="preview-content">
+          <p class="placeholder">Click "Generate" to preview markdown content...</p>
+        </div>
+      </section>
+
+      <section class="actions">
+        <button id="generate-btn" class="btn btn-primary">Generate</button>
+        <button id="save-btn" class="btn btn-success" disabled>Save</button>
+      </section>
+    </main>
+  </div>
+
+  <script src="sidepanel.js" type="module"></script>
+</body>
+</html>
