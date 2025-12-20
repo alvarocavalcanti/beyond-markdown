@@ -6,6 +6,20 @@ A browser extension to export D&D Beyond content as Markdown files.
 ![Chrome](https://img.shields.io/badge/chrome-supported-brightgreen.svg)
 ![Firefox](https://img.shields.io/badge/firefox-supported-brightgreen.svg)
 
+## ⚠️ Important Disclaimer
+
+This extension is intended for **personal use only**. By using this extension, you agree to:
+
+- Comply with [D&D Beyond's Terms of Service](https://www.dndbeyond.com/en/terms-conditions)
+- Only export content you have legal access to view
+- Use exported content solely for personal, non-commercial purposes
+- Not redistribute or share exported content
+- Respect Wizards of the Coast's intellectual property rights
+
+This tool functions similarly to your browser's "Print to PDF" or "Save As" features - it only converts content already visible to you in your browser. It does not bypass any paywalls, authentication, or access controls.
+
+**The authors of this extension are not affiliated with Wizards of the Coast or D&D Beyond.**
+
 ## Features
 
 - 🎲 Extract content from D&D Beyond source pages
@@ -55,7 +69,6 @@ A browser extension to export D&D Beyond content as Markdown files.
 
 ```bash
 npm install
-npm run generate-icons
 ```
 
 ### Build Commands
@@ -65,7 +78,6 @@ npm run generate-icons
 - `npm run build` - Build production version for Chrome
 - `npm run build:firefox` - Build production version for Firefox
 - `npm run lint` - Lint TypeScript files
-- `npm run generate-icons` - Generate extension icons
 - `npm run release:chrome` - Create Chrome release zip
 - `npm run release:firefox` - Create Firefox release zip
 
