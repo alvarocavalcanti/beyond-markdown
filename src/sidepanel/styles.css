@@ -40,6 +40,54 @@ main {
   overflow-y: auto;
 }
 
+.disclaimer {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 4px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.disclaimer summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #856404;
+  user-select: none;
+  padding: 0.25rem;
+}
+
+.disclaimer summary:hover {
+  color: #533f03;
+}
+
+.disclaimer-content {
+  padding: 0.75rem 0.5rem 0.25rem;
+  font-size: 12px;
+  color: #856404;
+}
+
+.disclaimer-content p {
+  margin: 0.5rem 0;
+}
+
+.disclaimer-content ul {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.disclaimer-content li {
+  margin: 0.25rem 0;
+}
+
+.disclaimer-content a {
+  color: #533f03;
+  text-decoration: underline;
+}
+
+.disclaimer-content a:hover {
+  color: #000;
+}
+
 .settings {
   background: white;
   padding: 1rem;
