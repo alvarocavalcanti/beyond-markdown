@@ -2,11 +2,6 @@ name: Create Release
 
 on:
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'Release version (e.g., 1.0.0)'
-        required: true
-        type: string
 
 jobs:
   build-and-release:
@@ -25,9 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Update version in manifest
+      - name: Read version from manifest
+        id: version
         run: |
-          node -e "const fs=require('fs'); const m=JSON.parse(fs.readFileSync('src/manifest.json')); m.version='${{ inputs.version }}'; fs.writeFileSync('src/manifest.json', JSON.stringify(m, null, 2));"
+          VERSION=$(node -e "console.log(JSON.parse(require('fs').readFileSync('src/manifest.json')).version)")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Using version: $VERSION"
 
       - name: Generate icons
         run: npm run generate-icons
@@ -41,22 +39,22 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
-          tag_name: v${{ inputs.version }}
-          name: Release v${{ inputs.version }}
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Release v${{ steps.version.outputs.version }}
           draft: false
           prerelease: false
           files: |
-            beyond-markdown-chrome-v${{ inputs.version }}.zip
-            beyond-markdown-firefox-v${{ inputs.version }}.zip
+            beyond-markdown-chrome-v${{ steps.version.outputs.version }}.zip
+            beyond-markdown-firefox-v${{ steps.version.outputs.version }}.zip
           body: |
-            ## Beyond Markdown v${{ inputs.version }}
+            ## Beyond Markdown v${{ steps.version.outputs.version }}
 
             Browser extension to export D&D Beyond content as Markdown.
 
             ### Downloads
 
-            - **Chrome**: `beyond-markdown-chrome-v${{ inputs.version }}.zip`
-            - **Firefox**: `beyond-markdown-firefox-v${{ inputs.version }}.zip`
+            - **Chrome**: `beyond-markdown-chrome-v${{ steps.version.outputs.version }}.zip`
+            - **Firefox**: `beyond-markdown-firefox-v${{ steps.version.outputs.version }}.zip`
 
             ### Installation
 
