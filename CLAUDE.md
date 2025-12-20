@@ -96,7 +96,7 @@ The extension is designed to handle D&D Beyond's specific HTML structure:
 3. Enable "Developer mode" (toggle in top right)
 4. Click "Load unpacked" and select the `dist/` directory
 5. Navigate to a D&D Beyond page (e.g., https://www.dndbeyond.com/sources/dnd/br-2024/playing-the-game)
-6. Click the extension icon to open the sidepanel
+6. Click the extension icon to open the popup
 7. Click "Generate" to convert the page content to Markdown
 8. Click "Save" to download the markdown file
 
@@ -107,14 +107,23 @@ The extension is designed to handle D&D Beyond's specific HTML structure:
 3. Click "Load Temporary Add-on..."
 4. Navigate to the `dist/` directory and select the `manifest.json` file
 5. Navigate to a D&D Beyond page (e.g., https://www.dndbeyond.com/sources/dnd/br-2024/playing-the-game)
-6. Click the extension icon in the toolbar
-7. Note: Firefox uses sidebar API instead of sidePanel - the extension may need UI adjustments
-8. Click "Generate" to convert the page content to Markdown
-9. Click "Save" to download the markdown file
+6. Click the extension icon in the toolbar to open the popup
+7. Click "Generate" to convert the page content to Markdown
+8. Click "Save" to download the markdown file
 
-### Known Issues
+### Implemented Features
+
+- ✅ HTML to Markdown conversion with Turndown
+- ✅ Custom rules for D&D Beyond aside elements and tooltips
+- ✅ Popup UI for both Chrome and Firefox
+- ✅ Settings persistence (save path, image options, syntax preference)
+- ✅ Clean markdown output (removed chunk-ids, navigation, fixed heading anchors)
+- ✅ File download using anchor element click (works in Firefox)
+
+### Known Issues & Future Improvements
 
 - Icons are placeholder SVG files renamed to PNG (should be replaced with proper PNG icons)
-- Settings persistence not yet implemented (see `src/utils/storage.ts`)
-- Image download/processing not yet implemented
-- Firefox compatibility not fully tested (manifest should work but may need adjustments)
+- Image download feature not implemented (image-processor.ts utility created but not integrated)
+  - Image URLs remain as external links in markdown
+  - Download images toggle and syntax selector are UI-only (not functional)
+- Custom save path input not implemented (files always save to default Downloads folder)

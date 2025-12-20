@@ -28,6 +28,8 @@ export default [
         URL: 'readonly',
         alert: 'readonly',
         setTimeout: 'readonly',
+        DOMParser: 'readonly',
+        fetch: 'readonly',
       },
     },
     plugins: {
