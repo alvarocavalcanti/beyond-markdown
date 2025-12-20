@@ -10,8 +10,8 @@
     "build:firefox": "tsc && TARGET_BROWSER=firefox vite build && node scripts/firefox-manifest.js",
     "lint": "eslint src --ext .ts",
     "generate-icons": "node scripts/generate-icons.js",
-    "release:chrome": "npm run build && cd dist && zip -r ../beyond-markdown-chrome-v1.0.0.zip . && cd .. && echo 'Chrome release created: beyond-markdown-chrome-v1.0.0.zip'",
-    "release:firefox": "npm run build:firefox && cd dist && zip -r ../beyond-markdown-firefox-v1.0.0.zip . && cd .. && echo 'Firefox release created: beyond-markdown-firefox-v1.0.0.zip'"
+    "release:chrome": "npm run build && node scripts/release.js chrome",
+    "release:firefox": "npm run build:firefox && node scripts/release.js firefox"
   },
   "keywords": [],
   "author": "",
