@@ -11,7 +11,8 @@ export function createMarkdownConverter(): TurndownService {
 
   addAsideRule(turndownService);
   addTooltipRule(turndownService);
-  addDataAttributeRule(turndownService);
+  addRemoveNavigationRule(turndownService);
+  addHeadingAnchorRule(turndownService);
 
   return turndownService;
 }
@@ -19,23 +20,12 @@ export function createMarkdownConverter(): TurndownService {
 function addAsideRule(turndownService: TurndownService) {
   turndownService.addRule('aside', {
     filter: 'aside',
-    replacement(content, node) {
-      const element = node as HTMLElement;
-      const className = element.className || '';
-
-      let prefix = '> ';
-      let header = '';
-
-      if (className.includes('rules-sidebar')) {
-        header = '**Rules Sidebar**\n\n';
-      } else if (className.includes('note')) {
-        header = '**Note**\n\n';
-      }
-
+    replacement(content) {
+      const prefix = '> ';
       const lines = content.trim().split('\n');
       const quotedLines = lines.map(line => `${prefix}${line}`).join('\n');
 
-      return `\n\n${prefix}${header}${quotedLines}\n\n`;
+      return `\n\n${quotedLines}\n\n`;
     },
   });
 }
@@ -61,22 +51,43 @@ function addTooltipRule(turndownService: TurndownService) {
   });
 }
 
-function addDataAttributeRule(turndownService: TurndownService) {
-  turndownService.addRule('dataAttributes', {
+function addRemoveNavigationRule(turndownService: TurndownService) {
+  turndownService.addRule('removeNavigation', {
     filter: (node) => {
       if (node.nodeType !== 1) return false;
       const element = node as HTMLElement;
-      return element.hasAttribute('data-content-chunk-id');
+
+      const isNav = node.nodeName === 'NAV';
+      const isBreadcrumb = element.getAttribute('role') === 'navigation';
+      const hasNavClass = !!(element.className && (
+        element.className.includes('breadcrumb') ||
+        element.className.includes('navigation') ||
+        element.className.includes('nav-')
+      ));
+
+      return isNav || isBreadcrumb || hasNavClass;
+    },
+    replacement() {
+      return '';
+    },
+  });
+}
+
+function addHeadingAnchorRule(turndownService: TurndownService) {
+  turndownService.addRule('headingAnchors', {
+    filter: (node) => {
+      if (!['H1', 'H2', 'H3', 'H4', 'H5', 'H6'].includes(node.nodeName)) return false;
+      const element = node as HTMLElement;
+      const firstChild = element.firstChild;
+      return !!(firstChild?.nodeName === 'A' && (firstChild as HTMLAnchorElement).getAttribute('href')?.startsWith('#'));
     },
     replacement(content, node) {
       const element = node as HTMLElement;
-      const chunkId = element.getAttribute('data-content-chunk-id');
+      const level = parseInt(node.nodeName.charAt(1));
+      const hashes = '#'.repeat(level);
 
-      if (chunkId && content.trim()) {
-        return `${content} <!-- chunk-id: ${chunkId} -->`;
-      }
-
-      return content;
+      const text = element.textContent || '';
+      return `\n\n${hashes} ${text}\n\n`;
     },
   });
 }

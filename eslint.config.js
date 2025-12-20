@@ -24,8 +24,10 @@ export default [
         HTMLElement: 'readonly',
         HTMLAnchorElement: 'readonly',
         Blob: 'readonly',
+        FileReader: 'readonly',
         URL: 'readonly',
         alert: 'readonly',
+        setTimeout: 'readonly',
       },
     },
     plugins: {

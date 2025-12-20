@@ -10,6 +10,8 @@ const savePathInput = document.getElementById('save-path') as HTMLInputElement;
 
 let currentMarkdown = '';
 
+console.log('Popup loaded, save path input:', savePathInput);
+
 downloadImagesCheckbox.addEventListener('change', () => {
   imageSyntaxGroup.style.display = downloadImagesCheckbox.checked ? 'block' : 'none';
 });
@@ -50,25 +52,30 @@ generateBtn.addEventListener('click', async () => {
   }
 });
 
-saveBtn.addEventListener('click', async () => {
+saveBtn.addEventListener('click', () => {
   if (!currentMarkdown) return;
 
   try {
-    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
-    const activeTab = tabs[0];
+    const tabs = browser.tabs.query({ active: true, currentWindow: true });
+    tabs.then((tabArray) => {
+      const activeTab = tabArray[0];
+      const filename = `${sanitizeFilename(activeTab.title || 'export')}.md`;
 
-    const filename = `${sanitizeFilename(activeTab.title || 'export')}.md`;
+      const blob = new Blob([currentMarkdown], { type: 'text/markdown;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
 
-    const dataUrl = 'data:text/markdown;charset=utf-8,' + encodeURIComponent(currentMarkdown);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.style.display = 'none';
+      document.body.appendChild(a);
+      a.click();
 
-    const downloadOptions: any = {
-      url: dataUrl,
-      filename: filename,
-      saveAs: true,
-    };
-
-    const downloadId = await browser.downloads.download(downloadOptions);
-    console.log('Download started:', downloadId);
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 100);
+    });
   } catch (error) {
     console.error('Error saving markdown:', error);
     alert(`Error saving file: ${error instanceof Error ? error.message : 'Unknown error'}`);
