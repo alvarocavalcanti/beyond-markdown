@@ -14,29 +14,41 @@ This browser extension should be compatible with both Firefox and Chrome. Its so
 
 ## Features
 
-### Markdown Content Generation
+### Markdown Content Generation ✅ IMPLEMENTED
 
 The page content should be converted to Markdown when the extension's icon is clicked.
 
-### Preview Window
+**Status**: Implemented using Turndown library with custom rules for D&D Beyond content.
+
+### Preview Window ✅ IMPLEMENTED
 
 When the user clicks the extension icon, the markdown content should be displayed on a popup/context window.
 
-### Saving the Markdown
+**Status**: Implemented as a popup window that works in both Chrome and Firefox.
+
+### Saving the Markdown ✅ PARTIALLY IMPLEMENTED
 
 The preview window offers a Save button, that defaults to the browser's Downloads folder. But there's a text box next to the button that the user can type a different folder.
 
-### Images
+**Status**: Save button implemented using browser's native "Save As" dialog. Custom folder path input removed as it's not compatible with browser extension security policies.
+
+### Images ⏳ NOT IMPLEMENTED
 
 The preview window has an option to either download the images or use external links instead. If the download option is selected, the user is offered to choose which syntax to be used, standard Markdown, `[text](link)` or Obsidian, `[[link]]`.
 
-### Previously Used Settings
+**Status**: Not implemented. Image processor utility created but not integrated. Images remain as external links in the markdown output.
+
+### Previously Used Settings ⏳ PARTIALLY IMPLEMENTED
 
 The extension should remember the last used settings.
 
-### Aside and Tooltip Support
+**Status**: Settings persistence infrastructure created but removed from UI since image download feature is not implemented.
 
-Both aforementioned Similar Extensions, Markdownload and Obsidian WebClipper, have limitations with the `aside` tags and other `tooltip` related classes. But those elements are widely used in D&amp;D Beyond, for example:
+### Aside and Tooltip Support ✅ IMPLEMENTED
+
+Both aforementioned Similar Extensions, Markdownload and Obsidian WebClipper, have limitations with the `aside` tags and other `tooltip` related classes. But those elements are widely used in D&D Beyond, for example:
+
+**Status**: Implemented with custom Turndown rules. Aside elements are converted to Markdown blockquotes, and tooltip links preserve their data-tooltip-href attributes.
 
 <https://www.dndbeyond.com/sources/dnd/br-2024/playing-the-game>
 

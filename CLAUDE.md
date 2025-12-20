@@ -116,14 +116,25 @@ The extension is designed to handle D&D Beyond's specific HTML structure:
 - ✅ HTML to Markdown conversion with Turndown
 - ✅ Custom rules for D&D Beyond aside elements and tooltips
 - ✅ Popup UI for both Chrome and Firefox
-- ✅ Settings persistence (save path, image options, syntax preference)
 - ✅ Clean markdown output (removed chunk-ids, navigation, fixed heading anchors)
-- ✅ File download using anchor element click (works in Firefox)
+- ✅ File download using anchor element click (works in Firefox and Chrome)
+- ✅ Proper PNG icons with D&D Beyond branding (red on black)
+- ✅ Cross-browser manifest support (service_worker for Chrome, scripts for Firefox)
+- ✅ GitHub Actions workflow for automated releases
+- ✅ Buy Me a Coffee support button
 
 ### Known Issues & Future Improvements
 
-- Icons are placeholder SVG files renamed to PNG (should be replaced with proper PNG icons)
 - Image download feature not implemented (image-processor.ts utility created but not integrated)
   - Image URLs remain as external links in markdown
-  - Download images toggle and syntax selector are UI-only (not functional)
-- Custom save path input not implemented (files always save to default Downloads folder)
+  - UI for image options removed
+- Settings persistence infrastructure exists but not exposed in UI
+- Custom save path not supported (browser security restrictions)
+
+### Release Process
+
+To create a release:
+1. Update version in `src/manifest.json`
+2. Run `npm run release:chrome` to create Chrome zip
+3. Run `npm run release:firefox` to create Firefox zip
+4. Or push to GitHub and use Actions workflow to create release automatically
