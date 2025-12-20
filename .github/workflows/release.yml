@@ -29,9 +29,6 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "Using version: $VERSION"
 
-      - name: Generate icons
-        run: npm run generate-icons
-
       - name: Build Chrome release
         run: npm run release:chrome
 
