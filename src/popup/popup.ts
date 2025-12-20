@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { convertHtmlToMarkdown } from '../utils/markdown-converter';
+import { getSettings, saveSettings } from '../utils/storage';
 
 const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
 const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
@@ -10,10 +11,36 @@ const savePathInput = document.getElementById('save-path') as HTMLInputElement;
 
 let currentMarkdown = '';
 
-console.log('Popup loaded, save path input:', savePathInput);
+async function loadSettings() {
+  const settings = await getSettings();
+  savePathInput.value = settings.savePath;
+  downloadImagesCheckbox.checked = settings.downloadImages;
+  imageSyntaxGroup.style.display = settings.downloadImages ? 'block' : 'none';
 
-downloadImagesCheckbox.addEventListener('change', () => {
+  const syntaxRadio = document.querySelector(`input[name="image-syntax"][value="${settings.imageSyntax}"]`) as HTMLInputElement;
+  if (syntaxRadio) {
+    syntaxRadio.checked = true;
+  }
+}
+
+loadSettings();
+
+savePathInput.addEventListener('change', async () => {
+  await saveSettings({ savePath: savePathInput.value });
+});
+
+downloadImagesCheckbox.addEventListener('change', async () => {
   imageSyntaxGroup.style.display = downloadImagesCheckbox.checked ? 'block' : 'none';
+  await saveSettings({ downloadImages: downloadImagesCheckbox.checked });
+});
+
+document.querySelectorAll('input[name="image-syntax"]').forEach(radio => {
+  radio.addEventListener('change', async (e) => {
+    const target = e.target as HTMLInputElement;
+    if (target.checked) {
+      await saveSettings({ imageSyntax: target.value as 'standard' | 'obsidian' });
+    }
+  });
 });
 
 generateBtn.addEventListener('click', async () => {
