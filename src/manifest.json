@@ -15,7 +15,7 @@
     "type": "module"
   },
   "action": {
-    "default_title": "Export to Markdown",
+    "default_title": "Beyond Markdown",
     "default_popup": "popup/index.html",
     "default_icon": {
       "16": "icons/icon-16.png",
