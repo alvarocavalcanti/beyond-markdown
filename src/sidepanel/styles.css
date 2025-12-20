@@ -164,3 +164,33 @@ main {
 .btn-success:hover:not(:disabled) {
   background: #229954;
 }
+
+.support {
+  padding: 1rem;
+  text-align: center;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.bmc-button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #FFDD00;
+  color: #000000;
+  text-decoration: none;
+  border-radius: 8px;
+  border: 2px solid #000000;
+  font-weight: 500;
+  font-size: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.bmc-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bmc-button span {
+  font-size: 16px;
+  margin-right: 0.25rem;
+}

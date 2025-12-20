@@ -11,7 +11,7 @@
     "https://www.dndbeyond.com/*"
   ],
   "background": {
-    "scripts": ["background/service-worker.ts"],
+    "service_worker": "background/service-worker.ts",
     "type": "module"
   },
   "action": {

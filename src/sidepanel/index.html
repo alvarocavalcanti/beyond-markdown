@@ -13,35 +13,6 @@
     </header>
 
     <main>
-      <section class="settings">
-        <div class="setting-group">
-          <label for="save-path">Save to folder:</label>
-          <div class="input-group">
-            <input type="text" id="save-path" placeholder="Downloads folder" />
-          </div>
-        </div>
-
-        <div class="setting-group">
-          <label>
-            <input type="checkbox" id="download-images" />
-            Download images locally
-          </label>
-        </div>
-
-        <div class="setting-group" id="image-syntax-group" style="display: none;">
-          <label>Image link syntax:</label>
-          <div class="radio-group">
-            <label>
-              <input type="radio" name="image-syntax" value="standard" checked />
-              Standard Markdown [text](link)
-            </label>
-            <label>
-              <input type="radio" name="image-syntax" value="obsidian" />
-              Obsidian [[link]]
-            </label>
-          </div>
-        </div>
-      </section>
 
       <section class="preview">
         <h2>Preview</h2>
@@ -53,6 +24,12 @@
       <section class="actions">
         <button id="generate-btn" class="btn btn-primary">Generate</button>
         <button id="save-btn" class="btn btn-success" disabled>Save</button>
+      </section>
+
+      <section class="support">
+        <a href="https://www.buymeacoffee.com/alvarocavalcanti" target="_blank" class="bmc-button">
+          <span>☕</span> Buy me a coffee
+        </a>
       </section>
     </main>
   </div>
