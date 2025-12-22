@@ -9,7 +9,7 @@
     "gecko": {
       "id": "beyond-markdown@memorablenaton.es",
       "data_collection_permissions": {
-        "required": false
+        "required": ["none"]
       }
     }
   },
