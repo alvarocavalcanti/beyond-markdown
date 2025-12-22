@@ -22,7 +22,7 @@ generateBtn.addEventListener('click', async () => {
 
     const response = await browser.tabs.sendMessage(activeTab.id, {
       type: MESSAGE_TYPES.EXTRACT_CONTENT,
-    });
+    }) as { html: string; title: string; url: string } | null;
 
     if (!response) {
       throw new Error('Failed to get page content');
@@ -74,7 +74,7 @@ saveBtn.addEventListener('click', async () => {
 
 function sanitizeFilename(filename: string): string {
   return filename
-    .replaceAll(/[^a-z0-9]/gi, '-')
+    .replaceAll(/[^(a-z0-9)]/gi, '-')
     .replaceAll(/-+/g, '-')
     .replaceAll(/^(-)|(-)$/g, '')
     .toLowerCase();

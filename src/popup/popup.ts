@@ -79,7 +79,7 @@ saveBtn.addEventListener('click', async () => {
 
 function sanitizeFilename(filename: string): string {
   return filename
-    .replaceAll(/[^a-z0-9]/gi, '-')
+    .replaceAll(/[^(a-z0-9)]/gi, '-')
     .replaceAll(/-+/g, '-')
     .replaceAll(/^(-)|(-)$/g, '')
     .toLowerCase();
