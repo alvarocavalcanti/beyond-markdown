@@ -5,6 +5,9 @@ import tsParser from '@typescript-eslint/parser';
 export default [
   js.configs.recommended,
   {
+    ignores: ['scripts/**/*.js'],
+  },
+  {
     files: ['src/**/*.ts', 'vitest.config.ts'],
     languageOptions: {
       parser: tsParser,
