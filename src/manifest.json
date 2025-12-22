@@ -1,13 +1,16 @@
 {
   "manifest_version": 3,
   "name": "Beyond Markdown",
+  "short_name": "Beyond MD",
   "version": "1.0.1",
   "description": "Export D&D Beyond content as Markdown",
   "author": "Alvaro Cavalcanti",
-  "homepage_url": "https://github.com/yourusername/beyond-markdown",
+  "homepage_url": "https://github.com/AlvaroCavalcanti/beyond-markdown",
+  "minimum_chrome_version": "109",
   "browser_specific_settings": {
     "gecko": {
       "id": "beyond-markdown@memorablenaton.es",
+      "strict_min_version": "109.0",
       "data_collection_permissions": {
         "required": ["none"]
       }
