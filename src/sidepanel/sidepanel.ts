@@ -1,6 +1,5 @@
 import browser from 'webextension-polyfill';
 import { convertHtmlToMarkdown } from '../utils/markdown-converter';
-import { getSettings, saveSettings } from '../utils/storage';
 
 const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
 const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;

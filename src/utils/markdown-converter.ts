@@ -1,4 +1,5 @@
 import TurndownService from 'turndown';
+import { gfm } from 'turndown-plugin-gfm';
 
 export function createMarkdownConverter(): TurndownService {
   const turndownService = new TurndownService({
@@ -8,6 +9,8 @@ export function createMarkdownConverter(): TurndownService {
     emDelimiter: '*',
     strongDelimiter: '**',
   });
+
+  turndownService.use(gfm);
 
   addAsideRule(turndownService);
   addTooltipRule(turndownService);
