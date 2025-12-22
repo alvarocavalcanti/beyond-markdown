@@ -8,9 +8,6 @@ export default defineConfig({
     webExtension({
       manifest: 'manifest.json',
       browser: process.env.TARGET_BROWSER || 'chrome',
-      webExtConfig: {
-        startUrl: 'https://www.dndbeyond.com/sources/dnd/br-2024/playing-the-game',
-      },
     }),
   ],
   build: {
