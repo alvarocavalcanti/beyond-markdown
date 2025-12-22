@@ -12,6 +12,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:ui": "vitest --ui",
+    "validate": "npm run lint && npm test && npm run build && npm run build:firefox",
     "release:chrome": "npm run build && node scripts/release.js chrome",
     "release:firefox": "npm run build:firefox && node scripts/release.js firefox",
     "prepare": "husky"
