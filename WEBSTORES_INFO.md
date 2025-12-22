@@ -122,7 +122,7 @@ You need at least 1 screenshot (1280x800 or 640x400 recommended).
 
 Since you're not collecting any user data, you can state:
 
-```
+```text
 This extension does not collect, store, or transmit any personal data. All processing happens locally in your browser. Settings are stored locally using the browser's storage API and are never sent to any server.
 ```
 
@@ -144,7 +144,7 @@ Used to save user preferences locally (currently not exposed in UI, but infrastr
 Required to allow users to download the converted markdown files to their local device.
 ```
 
-**host_permissions (https://www.dndbeyond.com/\*)**:
+**host_permissions** (`https://www.dndbeyond.com/*`):
 
 ```text
 Required to access and extract content from D&D Beyond pages that the user is currently viewing. This permission allows the content script to read the page HTML and convert it to Markdown.
@@ -160,7 +160,7 @@ Required to access and extract content from D&D Beyond pages that the user is cu
 beyond-markdown@alvarocavalcanti.dev
 ```
 
-*(Already in manifest.json)*
+Already in manifest.json
 
 ### License
 
@@ -168,7 +168,7 @@ beyond-markdown@alvarocavalcanti.dev
 Apache License 2.0
 ```
 
-*(Match with your LICENSE file)*
+Match with your LICENSE file
 
 ### This add-on is experimental
 
@@ -209,7 +209,7 @@ If uploading source, include:
 4. The built extension will be in the dist/ folder
 ```
 
-### Screenshots Required
+### Screenshots
 
 At least 1 screenshot required (same as Chrome).
 
