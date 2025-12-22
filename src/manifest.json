@@ -10,6 +10,9 @@
       "id": "beyond-markdown@memorablenaton.es"
     }
   },
+  "data_collection_permissions": {
+    "data_collection": false
+  },
   "permissions": [
     "downloads"
   ],
