@@ -7,11 +7,11 @@
   "homepage_url": "https://github.com/yourusername/beyond-markdown",
   "browser_specific_settings": {
     "gecko": {
-      "id": "beyond-markdown@memorablenaton.es"
+      "id": "beyond-markdown@memorablenaton.es",
+      "data_collection_permissions": {
+        "data_collection": false
+      }
     }
-  },
-  "data_collection_permissions": {
-    "data_collection": false
   },
   "permissions": [
     "downloads"
