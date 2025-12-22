@@ -132,12 +132,6 @@ Or simply: **Not Required** (check "This extension does not collect user data")
 
 When Chrome asks why you need each permission:
 
-**storage**:
-
-```text
-Used to save user preferences locally (currently not exposed in UI, but infrastructure exists for future features).
-```
-
 **downloads**:
 
 ```text
