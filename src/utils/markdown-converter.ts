@@ -43,7 +43,7 @@ function addTooltipRule(turndownService: TurndownService) {
     replacement(content, node) {
       const element = node as HTMLAnchorElement;
       const href = element.getAttribute('href') || '';
-      const tooltipHref = element.getAttribute('data-tooltip-href');
+      const tooltipHref = element.dataset.tooltipHref;
 
       if (tooltipHref) {
         return `[${content}](${href} "${tooltipHref}")`;
@@ -86,7 +86,7 @@ function addHeadingAnchorRule(turndownService: TurndownService) {
     },
     replacement(content, node) {
       const element = node as HTMLElement;
-      const level = parseInt(node.nodeName.charAt(1));
+      const level = Number.parseInt(node.nodeName.charAt(1));
       const hashes = '#'.repeat(level);
 
       const text = element.textContent || '';

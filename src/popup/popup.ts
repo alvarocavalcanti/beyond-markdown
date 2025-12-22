@@ -49,30 +49,28 @@ generateBtn.addEventListener('click', async () => {
   }
 });
 
-saveBtn.addEventListener('click', () => {
+saveBtn.addEventListener('click', async () => {
   if (!currentMarkdown) return;
 
   try {
-    const tabs = browser.tabs.query({ active: true, currentWindow: true });
-    tabs.then((tabArray) => {
-      const activeTab = tabArray[0];
-      const filename = `${sanitizeFilename(activeTab.title || 'export')}.md`;
+    const tabs = await browser.tabs.query({ active: true, currentWindow: true });
+    const activeTab = tabs[0];
+    const filename = `${sanitizeFilename(activeTab.title || 'export')}.md`;
 
-      const blob = new Blob([currentMarkdown], { type: 'text/markdown;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
+    const blob = new Blob([currentMarkdown], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
 
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
 
-      setTimeout(() => {
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-      }, 100);
-    });
+    setTimeout(() => {
+      a.remove();
+      URL.revokeObjectURL(url);
+    }, 100);
   } catch (error) {
     console.error('Error saving markdown:', error);
     alert(`Error saving file: ${error instanceof Error ? error.message : 'Unknown error'}`);
@@ -81,9 +79,9 @@ saveBtn.addEventListener('click', () => {
 
 function sanitizeFilename(filename: string): string {
   return filename
-    .replace(/[^a-z0-9]/gi, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '')
+    .replaceAll(/[^a-z0-9]/gi, '-')
+    .replaceAll(/-+/g, '-')
+    .replaceAll(/^-|-$/g, '')
     .toLowerCase();
 }
 

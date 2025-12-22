@@ -50,12 +50,12 @@ export function rewriteImageLinks(
   images.forEach((imageInfo) => {
     const newSrc = downloadImages ? imageInfo.filename : imageInfo.originalSrc;
 
-    const standardPattern = new RegExp(`!\\[([^\\]]*)\\]\\(${escapeRegex(imageInfo.originalSrc)}[^)]*\\)`, 'g');
+    const standardPattern = new RegExp(String.raw`!\[([^\]]*)\]\(${escapeRegex(imageInfo.originalSrc)}[^)]*\)`, 'g');
 
     if (syntax === 'obsidian' && downloadImages) {
-      result = result.replace(standardPattern, `![[${newSrc}]]`);
+      result = result.replaceAll(standardPattern, `![[${newSrc}]]`);
     } else {
-      result = result.replace(standardPattern, `![$1](${newSrc})`);
+      result = result.replaceAll(standardPattern, `![$1](${newSrc})`);
     }
   });
 
@@ -67,12 +67,12 @@ function getFilenameFromUrl(url: string, index: number): string {
     const urlObj = new URL(url);
     const pathname = urlObj.pathname;
     const filename = pathname.split('/').pop() || `image-${index}`;
-    return filename.replace(/[^a-z0-9.-]/gi, '-');
+    return filename.replaceAll(/[^a-z0-9.-]/gi, '-');
   } catch {
     return `image-${index}.png`;
   }
 }
 
 function escapeRegex(str: string): string {
-  return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  return str.replaceAll(/[.*+?^${}()|[\]\\]/g, String.raw`\$&`);
 }

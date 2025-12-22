@@ -15,14 +15,14 @@ function extractPageContent() {
     return {
       html: document.body.innerHTML,
       title: document.title,
-      url: window.location.href,
+      url: globalThis.location.href,
     };
   }
 
   return {
     html: articleContent.innerHTML,
     title: document.title,
-    url: window.location.href,
+    url: globalThis.location.href,
   };
 }
 
