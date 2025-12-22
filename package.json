@@ -10,7 +10,8 @@
     "build:firefox": "tsc && TARGET_BROWSER=firefox vite build && node scripts/firefox-manifest.js",
     "lint": "eslint src --ext .ts",
     "release:chrome": "npm run build && node scripts/release.js chrome",
-    "release:firefox": "npm run build:firefox && node scripts/release.js firefox"
+    "release:firefox": "npm run build:firefox && node scripts/release.js firefox",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +23,9 @@
     "@typescript-eslint/parser": "^8.50.0",
     "@vitejs/plugin-react": "^5.1.2",
     "eslint": "^9.39.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "markdownlint-cli": "^0.47.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.0",
     "vite-plugin-web-extension": "^4.5.0",
@@ -30,5 +34,9 @@
   "dependencies": {
     "@types/turndown": "^5.0.6",
     "turndown": "^7.2.2"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --fix",
+    "*.md": "markdownlint --fix"
   }
 }
