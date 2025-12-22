@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { convertHtmlToMarkdown } from '../utils/markdown-converter';
+import { MESSAGE_TYPES } from '../constants/messages';
 
 const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
 const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
@@ -22,7 +23,7 @@ generateBtn.addEventListener('click', async () => {
     console.log('Sending message to tab:', activeTab.id, activeTab.url);
 
     const response = await browser.tabs.sendMessage(activeTab.id, {
-      type: 'EXTRACT_CONTENT',
+      type: MESSAGE_TYPES.EXTRACT_CONTENT,
     }).catch((error) => {
       console.error('Error sending message to content script:', error);
       throw new Error(`Content script not loaded. Make sure you're on a D&D Beyond page. Error: ${error.message}`);

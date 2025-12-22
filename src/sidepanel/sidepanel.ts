@@ -1,5 +1,6 @@
 import browser from 'webextension-polyfill';
 import { convertHtmlToMarkdown } from '../utils/markdown-converter';
+import { MESSAGE_TYPES } from '../constants/messages';
 
 const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
 const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
@@ -20,7 +21,7 @@ generateBtn.addEventListener('click', async () => {
     }
 
     const response = await browser.tabs.sendMessage(activeTab.id, {
-      type: 'EXTRACT_CONTENT',
+      type: MESSAGE_TYPES.EXTRACT_CONTENT,
     }) as { html: string; title: string; url: string } | null;
 
     if (!response) {

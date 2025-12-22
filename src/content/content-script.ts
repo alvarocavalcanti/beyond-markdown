@@ -1,7 +1,8 @@
 import browser from 'webextension-polyfill';
+import { MESSAGE_TYPES } from '../constants/messages';
 
 browser.runtime.onMessage.addListener((message: any) => {
-  if (message.type === 'EXTRACT_CONTENT') {
+  if (message.type === MESSAGE_TYPES.EXTRACT_CONTENT) {
     return Promise.resolve(extractPageContent());
   }
   return false;
