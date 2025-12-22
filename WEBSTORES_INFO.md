@@ -157,7 +157,7 @@ Required to access and extract content from D&D Beyond pages that the user is cu
 ### Add-on ID
 
 ```text
-beyond-markdown@alvarocavalcanti.dev
+beyond-markdown@memorablenaton.es
 ```
 
 Already in manifest.json
