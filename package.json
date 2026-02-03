@@ -1,6 +1,6 @@
 {
   "name": "beyond-markdown",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A browser extension for you to export your D&amp;D Beyond content as Markdown.",
   "type": "module",
   "scripts": {

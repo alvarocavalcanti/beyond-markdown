@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Beyond Markdown",
   "short_name": "Beyond MD",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Export D&D Beyond content as Markdown",
   "author": "Alvaro Cavalcanti",
   "homepage_url": "https://github.com/AlvaroCavalcanti/beyond-markdown",
