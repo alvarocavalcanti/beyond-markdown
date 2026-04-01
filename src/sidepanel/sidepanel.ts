@@ -1,12 +1,22 @@
 import browser from 'webextension-polyfill';
-import { convertHtmlToMarkdown } from '../utils/markdown-converter';
+import { convertHtmlToMarkdown, type LinkStyle } from '../utils/markdown-converter';
+import { getSettings, saveSettings } from '../utils/storage';
 import { MESSAGE_TYPES } from '../constants/messages';
 
 const generateBtn = document.getElementById('generate-btn') as HTMLButtonElement;
 const saveBtn = document.getElementById('save-btn') as HTMLButtonElement;
 const markdownPreview = document.getElementById('markdown-preview') as HTMLDivElement;
+const linkStyleSelect = document.getElementById('link-style') as HTMLSelectElement;
 
 let currentMarkdown = '';
+
+getSettings().then((settings) => {
+  linkStyleSelect.value = settings.linkStyle;
+});
+
+linkStyleSelect.addEventListener('change', () => {
+  saveSettings({ linkStyle: linkStyleSelect.value as LinkStyle });
+});
 
 generateBtn.addEventListener('click', async () => {
   try {
@@ -28,7 +38,9 @@ generateBtn.addEventListener('click', async () => {
       throw new Error('Failed to get page content');
     }
 
-    currentMarkdown = convertHtmlToMarkdown(response.html, response.title, response.url);
+    currentMarkdown = convertHtmlToMarkdown(response.html, response.title, response.url, {
+      linkStyle: linkStyleSelect.value as LinkStyle,
+    });
 
     markdownPreview.textContent = currentMarkdown;
     markdownPreview.classList.remove('placeholder');

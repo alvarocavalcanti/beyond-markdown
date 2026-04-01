@@ -23,6 +23,7 @@ export default [
         window: 'readonly',
         HTMLButtonElement: 'readonly',
         HTMLInputElement: 'readonly',
+        HTMLSelectElement: 'readonly',
         HTMLDivElement: 'readonly',
         HTMLElement: 'readonly',
         HTMLAnchorElement: 'readonly',

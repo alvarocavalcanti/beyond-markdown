@@ -1,7 +1,13 @@
 import TurndownService from 'turndown';
 import { gfm } from 'turndown-plugin-gfm';
 
-export function createMarkdownConverter(): TurndownService {
+export type LinkStyle = 'absolute' | 'keep' | 'remove';
+
+export interface ConversionOptions {
+  linkStyle?: LinkStyle;
+}
+
+export function createMarkdownConverter(options: ConversionOptions = {}): TurndownService {
   const turndownService = new TurndownService({
     headingStyle: 'atx',
     codeBlockStyle: 'fenced',
@@ -14,6 +20,8 @@ export function createMarkdownConverter(): TurndownService {
 
   addAsideRule(turndownService);
   addTooltipRule(turndownService);
+  addExternalLinkRule(turndownService, options.linkStyle ?? 'absolute');
+  addListItemRule(turndownService);
   addRemoveNavigationRule(turndownService);
   addHeadingAnchorRule(turndownService);
 
@@ -76,6 +84,51 @@ function addRemoveNavigationRule(turndownService: TurndownService) {
   });
 }
 
+function addExternalLinkRule(turndownService: TurndownService, linkStyle: LinkStyle) {
+  if (linkStyle === 'keep') return;
+
+  turndownService.addRule('externalLink', {
+    filter: (node) => {
+      if (node.nodeName !== 'A') return false;
+      const element = node as HTMLAnchorElement;
+      if (element.classList.contains('tooltip-hover')) return false;
+      const href = element.getAttribute('href') || '';
+      return href.startsWith('/');
+    },
+    replacement(content, node) {
+      if (linkStyle === 'remove') return content;
+
+      const element = node as HTMLAnchorElement;
+      const href = element.getAttribute('href') || '';
+      return `[${content}](https://www.dndbeyond.com${href})`;
+    },
+  });
+}
+
+function addListItemRule(turndownService: TurndownService) {
+  turndownService.addRule('listItem', {
+    filter: 'li',
+    replacement(content, node, options) {
+      const cleaned = content
+        .replace(/^\n+/, '')
+        .replace(/\n+$/, '\n')
+        .replace(/\n/gm, '\n    ')
+        .trimStart();
+
+      const parent = node.parentNode as HTMLElement;
+      let prefix = `${options.bulletListMarker} `;
+
+      if (parent?.nodeName === 'OL') {
+        const start = parent.getAttribute('start');
+        const index = Array.prototype.indexOf.call(parent.children, node);
+        prefix = `${start ? Number(start) + index : index + 1}. `;
+      }
+
+      return prefix + cleaned + (node.nextSibling && !/\n$/.test(cleaned) ? '\n' : '');
+    },
+  });
+}
+
 function addHeadingAnchorRule(turndownService: TurndownService) {
   turndownService.addRule('headingAnchors', {
     filter: (node) => {
@@ -95,8 +148,8 @@ function addHeadingAnchorRule(turndownService: TurndownService) {
   });
 }
 
-export function convertHtmlToMarkdown(html: string, title?: string, url?: string): string {
-  const converter = createMarkdownConverter();
+export function convertHtmlToMarkdown(html: string, title?: string, url?: string, options?: ConversionOptions): string {
+  const converter = createMarkdownConverter(options);
   let markdown = converter.turndown(html);
 
   if (title) {

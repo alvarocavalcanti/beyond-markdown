@@ -4,12 +4,14 @@ export interface Settings {
   savePath: string;
   downloadImages: boolean;
   imageSyntax: 'standard' | 'obsidian';
+  linkStyle: 'absolute' | 'keep' | 'remove';
 }
 
 const DEFAULT_SETTINGS: Settings = {
   savePath: '',
   downloadImages: false,
   imageSyntax: 'standard',
+  linkStyle: 'absolute',
 };
 
 export async function getSettings(): Promise<Settings> {

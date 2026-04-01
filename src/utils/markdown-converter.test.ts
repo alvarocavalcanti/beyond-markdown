@@ -64,7 +64,7 @@ describe('markdown-converter', () => {
 
       expect(result).toContain('> Rules Glossary');
       expect(result).toContain('> If you read a rules term');
-      expect(result).toContain('[Rules Glossary](/sources/dnd/br-2024/rules-glossary)');
+      expect(result).toContain('[Rules Glossary](https://www.dndbeyond.com/sources/dnd/br-2024/rules-glossary)');
     });
 
     it('should handle aside with multiple paragraphs', () => {
@@ -139,12 +139,12 @@ describe('markdown-converter', () => {
       expect(result).toBe('[Link](/test)');
     });
 
-    it('should handle regular links normally', () => {
+    it('should convert regular relative links to absolute D&D Beyond URLs by default', () => {
       const html = `<a href="/test">Regular Link</a>`;
 
       const result = convertHtmlToMarkdown(html);
 
-      expect(result).toBe('[Regular Link](/test)');
+      expect(result).toBe('[Regular Link](https://www.dndbeyond.com/test)');
     });
 
     it('should preserve multiple tooltip links in same paragraph', () => {
@@ -207,6 +207,66 @@ describe('markdown-converter', () => {
 
       expect(result).not.toContain('Parent');
       expect(result).toContain('Main content');
+    });
+  });
+
+  describe('bullet point formatting', () => {
+    it('should not add extra spaces after bullet marker', () => {
+      const html = '<ul><li>  Simple item</li></ul>';
+      const result = convertHtmlToMarkdown(html);
+      expect(result).toContain('- Simple item');
+      expect(result).not.toMatch(/^- {2,}/m);
+    });
+
+    it('should handle list items with leading whitespace from inline elements', () => {
+      const html = '<ul><li><strong>Bold</strong> text</li></ul>';
+      const result = convertHtmlToMarkdown(html);
+      expect(result).toMatch(/^- \*\*Bold\*\*/m);
+    });
+
+    it('should render ordered lists correctly', () => {
+      const html = '<ol><li>First</li><li>Second</li></ol>';
+      const result = convertHtmlToMarkdown(html);
+      expect(result).toContain('1. First');
+      expect(result).toContain('2. Second');
+    });
+  });
+
+  describe('external link handling', () => {
+    it('should convert relative links to absolute D&D Beyond URLs by default', () => {
+      const html = '<a href="/sources/dnd/phb">PHB</a>';
+      const result = convertHtmlToMarkdown(html);
+      expect(result).toBe('[PHB](https://www.dndbeyond.com/sources/dnd/phb)');
+    });
+
+    it('should keep relative links as-is when linkStyle is keep', () => {
+      const html = '<a href="/sources/dnd/phb">PHB</a>';
+      const result = convertHtmlToMarkdown(html, undefined, undefined, { linkStyle: 'keep' });
+      expect(result).toBe('[PHB](/sources/dnd/phb)');
+    });
+
+    it('should remove links and keep text when linkStyle is remove', () => {
+      const html = '<a href="/sources/dnd/phb">PHB</a>';
+      const result = convertHtmlToMarkdown(html, undefined, undefined, { linkStyle: 'remove' });
+      expect(result).toBe('PHB');
+    });
+
+    it('should not affect already-absolute URLs', () => {
+      const html = '<a href="https://example.com">External</a>';
+      const result = convertHtmlToMarkdown(html);
+      expect(result).toBe('[External](https://example.com)');
+    });
+
+    it('should not affect anchor links', () => {
+      const html = '<a href="#section">Jump</a>';
+      const result = convertHtmlToMarkdown(html);
+      expect(result).toBe('[Jump](#section)');
+    });
+
+    it('should not affect tooltip links regardless of linkStyle', () => {
+      const html = '<a class="tooltip-hover" href="/skills" data-tooltip-href="//www.dndbeyond.com/skills/12-tooltip">Insight</a>';
+      const result = convertHtmlToMarkdown(html, undefined, undefined, { linkStyle: 'remove' });
+      expect(result).toContain('[Insight](/skills');
     });
   });
 
