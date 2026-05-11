@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2026-05-11
+
+### Fixed
+
+- Remove Links option now also strips absolute URLs (`https://...`) — previously only relative links were removed
+
 ## [1.1.0] - 2026-04-01
 
 ### Added
