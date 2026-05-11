@@ -79,3 +79,23 @@ jobs:
             - ✅ Works on all D&D Beyond source pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to Chrome Web Store
+        uses: trmcnvn/chrome-addon@v2
+        with:
+          addon: ${{ secrets.CHROME_EXTENSION_ID }}
+          zip: beyond-markdown-chrome-v${{ steps.version.outputs.version }}.zip
+          client-id: ${{ secrets.CHROME_CLIENT_ID }}
+          client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
+          refresh-token: ${{ secrets.CHROME_REFRESH_TOKEN }}
+
+      - name: Publish to Firefox Add-ons
+        run: |
+          npx web-ext sign \
+            --channel listed \
+            --api-key "$AMO_ISSUER" \
+            --api-secret "$AMO_SECRET" \
+            --source-dir dist/
+        env:
+          AMO_ISSUER: ${{ secrets.AMO_ISSUER }}
+          AMO_SECRET: ${{ secrets.AMO_SECRET }}
