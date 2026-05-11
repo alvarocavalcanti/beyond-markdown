@@ -251,10 +251,22 @@ describe('markdown-converter', () => {
       expect(result).toBe('PHB');
     });
 
-    it('should not affect already-absolute URLs', () => {
+    it('should not affect already-absolute URLs when linkStyle is absolute', () => {
       const html = '<a href="https://example.com">External</a>';
       const result = convertHtmlToMarkdown(html);
       expect(result).toBe('[External](https://example.com)');
+    });
+
+    it('should remove absolute URLs when linkStyle is remove', () => {
+      const html = '<a href="https://example.com">External</a>';
+      const result = convertHtmlToMarkdown(html, undefined, undefined, { linkStyle: 'remove' });
+      expect(result).toBe('External');
+    });
+
+    it('should remove dndbeyond absolute links when linkStyle is remove', () => {
+      const html = '<a href="https://www.dndbeyond.com/sources/dnd/phb">PHB</a>';
+      const result = convertHtmlToMarkdown(html, undefined, undefined, { linkStyle: 'remove' });
+      expect(result).toBe('PHB');
     });
 
     it('should not affect anchor links', () => {

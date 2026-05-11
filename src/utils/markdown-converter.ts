@@ -93,6 +93,7 @@ function addExternalLinkRule(turndownService: TurndownService, linkStyle: LinkSt
       const element = node as HTMLAnchorElement;
       if (element.classList.contains('tooltip-hover')) return false;
       const href = element.getAttribute('href') || '';
+      if (linkStyle === 'remove') return href.startsWith('/') || href.startsWith('http');
       return href.startsWith('/');
     },
     replacement(content, node) {
