@@ -83,7 +83,7 @@ jobs:
       - name: Publish to Chrome Web Store
         uses: trmcnvn/chrome-addon@v2
         with:
-          addon: ${{ secrets.CHROME_EXTENSION_ID }}
+          extension: ${{ secrets.CHROME_EXTENSION_ID }}
           zip: beyond-markdown-chrome-v${{ steps.version.outputs.version }}.zip
           client-id: ${{ secrets.CHROME_CLIENT_ID }}
           client-secret: ${{ secrets.CHROME_CLIENT_SECRET }}
